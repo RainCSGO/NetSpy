@@ -48,7 +48,7 @@ namespace NetSpy.Helper
             MREClient.Send(data, data.Length);
         }
 
-        public bool isFloat(float number)
+        public bool IsFloat(float number)
         {
             if (number != (int) number)
             {
@@ -65,7 +65,7 @@ namespace NetSpy.Helper
             float packetsFloat = data.Length / Buffer;
             int packetsNumber = 0;
 
-            if (isFloat(packetsFloat))
+            if (IsFloat(packetsFloat))
             {
                 packetsNumber = (int)packetsFloat + 1;
             }
@@ -73,7 +73,7 @@ namespace NetSpy.Helper
             {
                 packetsNumber = (int)packetsFloat;
             }
-            
+            Console.WriteLine("Packets needed: " + packetsNumber);
             byte[][] packets = new byte[packetsNumber][];
 
             if (data.Length < Buffer)
@@ -100,7 +100,7 @@ namespace NetSpy.Helper
                     //BUILD PACKET
                     for (int j = 0; j < Buffer; j++)
                     {
-                        packet[dataPos] = data[dataPos];
+                        packet[j] = data[dataPos];
                         dataPos++;
                     }
 
@@ -111,22 +111,44 @@ namespace NetSpy.Helper
             }
         }
 
-        private void printMatrix(object[][] matrix)
+        private void PrintMatrix(byte[][] matrix)
         {
             Console.Write("[" + Environment.NewLine);
-            foreach (var rows in matrix)
+
+            for (int i = 0; i < matrix.Length; i++)
             {
-                foreach (var cell in rows)
+                Console.Write(i + ") ");
+                for (int j = 0; j < matrix[i].Length; j++)
                 {
-                    Console.Write(cell + " ");
+                    Console.Write(matrix[i][j] + " ");
                 }
+                Console.WriteLine("");
             }
-            Console.Write(Environment.NewLine + "]" + Environment.NewLine);
+
+
+            Console.Write("]" + Environment.NewLine);
         }
 
-        private byte[][] buildRandomPackets()
+        private byte[][] BuildRandomPackets(int length)
         {
+            byte[] data = new byte[length];
+            FillRandomPacket(data);
+            return PreparePackets(data);
+        }
 
+
+        private void FillRandomPacket(byte[] packet)
+        {
+            for (int i = 0; i < packet.Length; i++)
+            {
+                packet[i] = (byte)NumbersHelper.GenerateNumber(0, 100);
+            }
+        }
+
+        public void TryPreparePackets()
+        {
+            byte[][] matrix = BuildRandomPackets(300 * 100);
+            PrintMatrix(matrix);
         }
     }
 }

@@ -52,6 +52,7 @@
       <DependentUpon>Connections.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper\ConnectionHelper.cs" />
+    <Compile Include="Helper\NumbersHelper.cs" />
     <Compile Include="Helper\SpyHelper.cs" />
     <Compile Include="Model\OLD MODEL\CommandsUtility.cs" />
     <Compile Include="Model\OLD MODEL\ConnectionUtility.cs" />

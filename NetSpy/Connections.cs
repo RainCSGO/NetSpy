@@ -16,6 +16,7 @@ namespace NetSpy
     {
         public ConnectionHelper ConnectionHelper;
         public Random rnd;
+
         public Connections()
         {
             InitializeComponent();
@@ -25,22 +26,23 @@ namespace NetSpy
 
         private void Connections_Load(object sender, EventArgs e)
         {
-           
+            ConnectionHelper.TryPreparePackets();
         }
 
-        public void sendFakePacket(int length)
+        public void SendFakePacket(int length)
         {
             byte[] packet = new byte[length];
             foreach (var cell in packet)
             {
-                packet[cell] = (byte) generateNumber(1, 100);
+                packet[cell] = (byte) GenerateNumber(1, 100);
             }
         }
 
-        private int generateNumber(int min, int max)
+        private int GenerateNumber(int min, int max)
         {
             return rnd.Next(min, max);
         }
+
 
 
     }
